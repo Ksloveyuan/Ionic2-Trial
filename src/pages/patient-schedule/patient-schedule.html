@@ -1,0 +1,79 @@
+<template #monthviewEventDetailTemplate let-showEventDetail="showEventDetail" let-selectedDate="selectedDate" let-noEventsLabel="noEventsLabel">
+   
+    <ion-list class="event-detail-container" has-bouncing="false" *ngIf="showEventDetail" overflow-scroll="true">
+        <ion-item *ngFor="let event of selectedDate?.events" [attr.stage]="event.stage" (click)="onEventSelected(event)">
+            <ion-grid no-padding no-margin>
+              <ion-row>
+                <ion-col col-3>{{event.startTime|date: 'HH:mm'}}</ion-col>
+                <ion-col col-9>{{event.title}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-3>{{event.endTime|date: 'HH:mm'}}</ion-col>
+                <ion-col col-9>{{event.doctor}}</ion-col>
+              </ion-row>
+            </ion-grid>
+            <!--<span *ngIf="!event.allDay" class="monthview-eventdetail-timecolumn">{{event.startTime|date: 'HH:mm'}}
+                    -
+                    {{event.endTime|date: 'HH:mm'}}
+                </span>
+            <span *ngIf="event.allDay" class="monthview-eventdetail-timecolumn">{{allDayLabel}}</span>
+            <span class="event-detail">  |  {{event.title}}</span>-->
+        </ion-item>
+        <ion-item *ngIf="selectedDate?.events.length==0">
+            <div class="no-events-label">{{noEventsLabel}}</div>
+        </ion-item>
+    </ion-list>
+  
+</template>
+ <template #monthviewDisplayEventTemplate let-view="view" let-row="row" let-col="col">
+          <div class="card">  
+              {{view.dates[row*7+col].label}} 
+            <span class="dot"></span>
+          </div>
+
+ </template>
+
+
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{viewTitle}}</ion-title>
+      <ion-buttons end>
+          <button ion-button clear [disabled]="isToday" (click)="today()">Today</button>
+          <!--<button ion-button (click)="changeMode('month')">M</button>
+          <button ion-button (click)="changeMode('week')">W</button>
+          <button ion-button (click)="changeMode('day')">D</button>-->
+      </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="segment" (ionChange)="changeMode(segment)">
+      <ion-segment-button value="month">
+        Month
+      </ion-segment-button>
+      <ion-segment-button value="week">
+        Week
+      </ion-segment-button>
+      <ion-segment-button value="day">
+        Day
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="has-header">
+  <calendar [monthviewDisplayEventTemplate]="monthviewDisplayEventTemplate"
+            [monthviewEventDetailTemplate]="monthviewEventDetailTemplate"
+            [eventSource]="eventSource"
+            [calendarMode]="calendar.mode"
+            [currentDate]="calendar.currentDate"
+            (onCurrentDateChanged)="onCurrentDateChanged($event)"
+            (onEventSelected)="onEventSelected($event)"
+            (onTitleChanged)="onViewTitleChanged($event)"
+            (onTimeSelected)="onTimeSelected($event)"
+              step="30">
+   </calendar>
+</ion-content>

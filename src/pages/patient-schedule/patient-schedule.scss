@@ -1,0 +1,106 @@
+patient-schedule-page{
+    monthview{
+
+        .text-muted {
+          color: #999;
+        }
+
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td,
+        .table > tbody > tr > td, .table > tfoot > tr > td {
+          padding: 4px !important;
+          line-height: 30px !important;
+          vertical-align: top;
+        }
+        .table > thead > tr > th {
+          vertical-align: bottom;
+          border-bottom: 2px solid #ddd;
+        }
+        // .table > thead:first-child > tr:first-child > th, .table > thead:first-child > tr:first-child > td {
+        //   border-top: 0
+        // }
+        .table > tbody + tbody {
+        //   border-top: 2px solid #ddd;
+          border: none !important;
+        }
+        .table-bordered {
+        //   border: 1px solid #ddd;
+          border: none !important;
+        }
+        .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th,
+        .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+          //border: 1px solid #ddd;
+          border: none !important;
+        }
+        .table-bordered > thead > tr > th, .table-bordered > thead > tr > td {
+        //   border-bottom-width: 2px;
+          border: none !important;
+        }
+        // .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+        //   background-color: #f9f9f9
+        // }
+        .monthview-primary-with-event {
+          background-color: transparent !important;
+          color: black !important;
+          .dot {
+                height: 6px;
+                width: 6px;
+                background-color: red;
+                border-radius: 6px;
+                float: right;
+            }
+        }
+        .monthview-current {
+          background-color: transparent !important;
+          .card{
+            background-color:lighten(orangered, 25);
+          }
+
+        }
+        .monthview-selected {
+          background-color: transparent !important;
+          color: black !important;
+          .card{
+            background-color:lighten(orangered, 10);
+          }
+        }
+        // .monthview-datetable td.monthview-disabled {
+        //     color: lightgrey;
+        //     cursor: default;
+        // }
+        // .monthview-datetable th {
+        //   text-align: center;
+        // }
+        // .monthview-datetable td {
+        //   cursor: pointer;
+        //   text-align: center;
+        // }
+        .monthview-secondary-with-event {
+          background-color: transparent !important;
+          .dot {
+                height: 6px;
+                width: 6px;
+                background-color: #999;
+                border-radius: 6px;
+                float: right;
+            }
+        }
+
+
+    .card {
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        text-align: center;
+        line-height: 30px;
+      }
+    
+    @each $stage, $value in auxiliary-stages() {
+        ion-item[stage=#{$stage}] ion-label {
+            border-left: 4px solid $value;
+            padding-left: 10px;
+        }
+    }
+
+    }
+}

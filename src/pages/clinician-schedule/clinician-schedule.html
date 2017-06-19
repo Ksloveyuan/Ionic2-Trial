@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{viewDate | date}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
+      <ion-segment-button value="all">
+        All
+      </ion-segment-button>
+      <ion-segment-button value="marked">
+        Marked
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list #scheduleList [hidden]="shownGroups === 0">
+
+    <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
+
+      <ion-item-divider sticky>
+        <ion-label>
+          {{group.header|date:"HH:mm"}}
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-item-sliding *ngFor="let schedule of group.schedules" #slidingItem [attr.stage]="schedule.stage" [hidden]="schedule.hide">
+
+        <button ion-item (click)="goToScheduleDetail(schedule)">
+
+            <ion-grid no-padding>
+              <ion-row>
+                <ion-col col-11>
+                  <ion-grid no-padding>
+                    <ion-row>
+                      <ion-col col-3>{{schedule.startTime|date:"HH:mm"}}</ion-col>
+                      <ion-col col-9> {{schedule.title}}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col col-3>{{schedule.endTime|date:"HH:mm"}}</ion-col>
+                      <ion-col col-9 >{{schedule.patient}}</ion-col>
+                    </ion-row>
+                    </ion-grid>
+                </ion-col>
+                <ion-col align-self-center col-1>
+                     <ion-icon name="bookmark-outline"  *ngIf="!!schedule.marked"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+        </button>
+
+        <ion-item-options>
+          <button ion-button color="favorite" (click)="markSchedule(slidingItem, schedule)" *ngIf="segment === 'all' && !schedule.marked">
+            Mark
+          </button>
+          <button ion-button color="danger" (click)="unmarkSchedule(slidingItem, schedule)" *ngIf="segment === 'marked' || !!schedule.marked">
+            UnMark
+          </button>
+        </ion-item-options>
+
+      </ion-item-sliding>
+
+    </ion-item-group>
+
+  </ion-list>
+</ion-content>

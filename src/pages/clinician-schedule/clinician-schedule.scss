@@ -1,0 +1,9 @@
+
+clinician-schedule-page{
+    @each $stage, $value in auxiliary-stages() {
+        ion-item-sliding[stage=#{$stage}] ion-label {
+            border-left: 4px solid $value;
+            padding-left: 10px;
+        }
+    }
+}

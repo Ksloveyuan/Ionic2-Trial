@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{scheduleDetialTitle}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="outer-content">
+
+  <ion-card>
+    <ion-card-header>
+      General Info
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+          <ion-label>Stage</ion-label>
+          <ion-label> {{scheduleDetail.stage}} </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Date</ion-label>
+          <ion-label> {{scheduleDetail.startTime|date:"MMM dd yyyy"}} </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Time</ion-label>
+          <ion-label>{{scheduleDetail.startTime|date:"HH:mm"}}-{{scheduleDetail.endTime|date:"HH:mm"}} </ion-label>
+        </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Doctor
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="assets/img/doctor.png">
+        </ion-avatar>
+        <h2>{{scheduleDetail.doctor}}</h2>
+        <p>Medical Physicist</p>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Description
+    </ion-card-header>
+    <ion-card-content>
+      Lorem ipsum dolor sit amet, at praesent aliquando pro, mei cu suas iracundia, vidisse dolores disputationi et usu. Ius prima
+      legimus sensibus in, quod ignota ius eu. An eos assum doctus recusabo. Propriae eligendi corrumpit in quo, sit iudico
+      iracundia no. Exerci intellegat referrentur est te. At pro congue civibus incorrupte, qui an lorem nullam viderer.
+    </ion-card-content>
+  </ion-card>
+</ion-content>
