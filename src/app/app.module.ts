@@ -18,6 +18,8 @@ import { ClinicianDataService } from '../providers/clinician-data';
 import { UserData } from '../providers/user-data';
 import { NgCalendarModule  } from 'ionic2-calendar';
 
+import { FingerprintAIO } from "@ionic-native/fingerprint-aio";
+
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ClinicianDataService,
     UserData,
-    SplashScreen
+    SplashScreen,
+    FingerprintAIO
   ]
 })
 export class AppModule { }
