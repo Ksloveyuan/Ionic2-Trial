@@ -18,9 +18,15 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 export class LoginPage {
   login: { username?: string, password?: string } = {};
   submitted = false;
+  hasLoggedIn: boolean = false;
 
   constructor(public navCtrl: NavController, public userData: UserData, private faio: FingerprintAIO) {
-
+    this.userData.hasLoggedIn().then(loggedIn=>{
+      this.hasLoggedIn = loggedIn;
+    }).catch(err=>{
+      this.hasLoggedIn = false;
+      console.log(err);
+    });
    }
 
   onLogin(form: NgForm) {
@@ -38,7 +44,7 @@ export class LoginPage {
 
   startTouchID() {
     this.faio.show({
-      clientId: 'Fingerprint-Demo',
+      clientId: 'Ionic Trail',
       clientSecret: 'password', //Only necessary for Android
       disableBackup: true  //Only for Android(optional)
     })
@@ -47,8 +53,8 @@ export class LoginPage {
          this.navCtrl.push(TabsPage);
       }
     })
-    .catch((error: any) => {
-
+    .catch((err: any) => {
+      console.log(err);
     });
   }
 
