@@ -12,7 +12,7 @@ import { ConferenceApp } from './app.component';
 import {TabsPage, AboutPage, AboutPopoverPage,AccountPage,
         LoginPage, SignupPage,TutorialPage,SupportPage,
         ClinicianSchedulePage, ClinicianScheduleFilterPage, 
-        PatientSchedulePage, ScheduleDetailPage} from '../pages';
+        PatientSchedulePage, ScheduleDetailPage, LockScreenPage} from '../pages';
 
 import { ClinicianDataService } from '../providers/clinician-data';
 import { UserData } from '../providers/user-data';
@@ -35,7 +35,8 @@ import { FingerprintAIO } from "@ionic-native/fingerprint-aio";
     ClinicianSchedulePage,
     ClinicianScheduleFilterPage,
     PatientSchedulePage,
-    ScheduleDetailPage
+    ScheduleDetailPage,
+    LockScreenPage
   ],
   imports: [
     BrowserModule,
@@ -50,6 +51,7 @@ import { FingerprintAIO } from "@ionic-native/fingerprint-aio";
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: AccountPage, name: 'AccountPage', segment: 'account' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' },
+        { component: LockScreenPage, name: 'LockScreenPage', segment: 'lockscreen' },
       ]
     }),
     IonicStorageModule.forRoot(),
@@ -68,7 +70,8 @@ import { FingerprintAIO } from "@ionic-native/fingerprint-aio";
     ClinicianSchedulePage,
     ClinicianScheduleFilterPage,
     PatientSchedulePage,
-    ScheduleDetailPage
+    ScheduleDetailPage,
+    LockScreenPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

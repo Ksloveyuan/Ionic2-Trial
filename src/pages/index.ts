@@ -5,6 +5,8 @@ export *  from '../pages/signup/signup';
 export *  from '../pages/tutorial/tutorial';
 export * from '../pages/support/support';
 export * from '../pages/about-popover/about-popover';
+export * from '../pages/lock-screen/lock-screen';
+                
 
 export * from './patient-schedule/patient-schedule';
 export * from './clinician-schedule/clinician-schedule';
