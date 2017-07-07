@@ -12,11 +12,13 @@ import { ConferenceApp } from './app.component';
 import {TabsPage, AboutPage, AboutPopoverPage,AccountPage,
         LoginPage, SignupPage,TutorialPage,SupportPage,
         ClinicianSchedulePage, ClinicianScheduleFilterPage, 
-        PatientSchedulePage, ScheduleDetailPage} from '../pages';
+        PatientSchedulePage, ScheduleDetailPage, LockScreenPage} from '../pages';
 
 import { ClinicianDataService } from '../providers/clinician-data';
 import { UserData } from '../providers/user-data';
 import { NgCalendarModule  } from 'ionic2-calendar';
+
+import { FingerprintAIO } from "@ionic-native/fingerprint-aio";
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     ClinicianSchedulePage,
     ClinicianScheduleFilterPage,
     PatientSchedulePage,
-    ScheduleDetailPage
+    ScheduleDetailPage,
+    LockScreenPage
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { NgCalendarModule  } from 'ionic2-calendar';
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: AccountPage, name: 'AccountPage', segment: 'account' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' },
+        { component: LockScreenPage, name: 'LockScreenPage', segment: 'lockscreen' },
       ]
     }),
     IonicStorageModule.forRoot(),
@@ -66,13 +70,15 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     ClinicianSchedulePage,
     ClinicianScheduleFilterPage,
     PatientSchedulePage,
-    ScheduleDetailPage
+    ScheduleDetailPage,
+    LockScreenPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ClinicianDataService,
     UserData,
-    SplashScreen
+    SplashScreen,
+    FingerprintAIO
   ]
 })
 export class AppModule { }

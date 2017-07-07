@@ -1,14 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Events, MenuController, Nav, Platform } from 'ionic-angular';
+import { Events, MenuController, Nav, Platform, ModalController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Storage } from '@ionic/storage';
 
-import {TabsPage,AccountPage,
-        LoginPage,TutorialPage,SupportPage,
-        ClinicianSchedulePage, 
-        PatientSchedulePage} from '../pages';
+import {
+  TabsPage, AccountPage,
+  LoginPage, TutorialPage, SupportPage,
+  ClinicianSchedulePage, LockScreenPage,
+  PatientSchedulePage
+} from '../pages';
 
 import { UserData } from '../providers/user-data';
 
@@ -55,7 +57,9 @@ export class ConferenceApp {
     public menu: MenuController,
     public platform: Platform,
     public storage: Storage,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public modalCtrl: ModalController,
+    // public toastCtrl: ToastCtroller
   ) {
 
     // Check if the user has already seen the tutorial
@@ -93,8 +97,8 @@ export class ConferenceApp {
     // tabs even if changing them from the menu
     if (this.nav.getActiveChildNav() && page.index != undefined) {
       this.nav.getActiveChildNav().select(page.index);
-    // Set the root of the nav with params if it's a tab index
-  } else {
+      // Set the root of the nav with params if it's a tab index
+    } else {
       this.nav.setRoot(page.name, params).catch((err: any) => {
         console.log(`Didn't set nav root: ${err}`);
       });
@@ -133,6 +137,17 @@ export class ConferenceApp {
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
       this.splashScreen.hide();
+      this.platform.resume.subscribe(() => {
+        let modal = this.modalCtrl.create(LockScreenPage, {}, {
+          showBackdrop: false,
+          enableBackdropDismiss: true
+        });
+
+        modal.present();
+        
+      }, (err) => {
+        console.log(err);
+      });
     });
   }
 
