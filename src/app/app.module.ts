@@ -11,7 +11,8 @@ import { ConferenceApp } from './app.component';
 
 import {TabsPage, AboutPage, AboutPopoverPage,AccountPage,
         LoginPage, SignupPage,TutorialPage,SupportPage,
-        ClinicianSchedulePage, ClinicianScheduleFilterPage, 
+        ClinicianSchedulePage, ClinicianScheduleActions,
+        ClinicianScheduleFilterPage, 
         PatientSchedulePage, ScheduleDetailPage, LockScreenPage} from '../pages';
 
 import { ClinicianDataService } from '../providers/clinician-data';
@@ -20,6 +21,9 @@ import { UserData } from '../providers/user-data';
 import { NgCalendarModule  } from 'ionic2-calendar';
 
 import { FingerprintAIO } from "@ionic-native/fingerprint-aio";
+
+import { NgReduxModule, NgRedux } from "ng2-Redux";
+import { store, IAppState } from "../store";
 
 
 @NgModule({
@@ -56,7 +60,8 @@ import { FingerprintAIO } from "@ionic-native/fingerprint-aio";
       ]
     }),
     IonicStorageModule.forRoot(),
-    NgCalendarModule
+    NgCalendarModule,
+    NgReduxModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -77,10 +82,15 @@ import { FingerprintAIO } from "@ionic-native/fingerprint-aio";
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ClinicianDataService,
+    ClinicianScheduleActions,
     PatientDataService,
     UserData,
     SplashScreen,
     FingerprintAIO
   ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(ngRedux: NgRedux<IAppState>){
+    ngRedux.provideStore(store);
+  }
+ }

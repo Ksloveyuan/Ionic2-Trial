@@ -9,7 +9,8 @@ export * from '../pages/lock-screen/lock-screen';
                 
 
 export * from './patient-schedule/patient-schedule';
-export * from './clinician-schedule/clinician-schedule';
+export * from './clinician-schedule/clinician-schedule.component';
+export * from './clinician-schedule/clinician-schedule.actions';
 export * from './clinician-schedule-filter/clinician-schedule-filter';
 export * from './schedule-detail/schedule-detail';
 export * from './tabs/tabs';
