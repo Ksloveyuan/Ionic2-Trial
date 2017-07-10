@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
 import { NavController } from "ionic-angular";
-
 import { ScheduleDetailPage } from "../schedule-detail/schedule-detail";
+import { PatientDataService } from "../../providers/patient-data";
+import * as dfns from "date-fns";
 
 @Component({
     selector: 'patient-schedule-page',
@@ -14,38 +14,13 @@ export class PatientSchedulePage {
     segment: string = "month";
 
     isToday:boolean;
+    
     calendar = {
         mode: 'month',
-        currentDate: new Date(),
-        dateFormatter: {
-            formatMonthViewDay: function(date:Date) {
-                return date.getDate().toString();
-            },
-            formatMonthViewDayHeader: function(date:Date) {
-                return 'MonMH';
-            },
-            formatMonthViewTitle: function(date:Date) {
-                return 'testMT';
-            },
-            formatWeekViewDayHeader: function(date:Date) {
-                return 'MonWH';
-            },
-            formatWeekViewTitle: function(date:Date) {
-                return 'testWT';
-            },
-            formatWeekViewHourColumn: function(date:Date) {
-                return 'testWH';
-            },
-            formatDayViewHourColumn: function(date:Date) {
-                return 'testDH';
-            },
-            formatDayViewTitle: function(date:Date) {
-                return 'testDT';
-            }
-        }
+        currentDate: new Date()
     };
 
-    constructor(private navCtrl: NavController) {
+    constructor(private navCtrl: NavController, private patientDataService: PatientDataService) {
 
     }
 
@@ -54,7 +29,9 @@ export class PatientSchedulePage {
     }
 
     ionViewDidLoad() {
-        this.eventSource = this.createRandomEvents();
+        this.patientDataService.getPatientSchedule().subscribe(data=>{
+            this.eventSource = data;
+        });
     }
 
     onViewTitleChanged(title: any) {
@@ -68,7 +45,7 @@ export class PatientSchedulePage {
     }
 
     today() {
-        this.calendar.currentDate = new Date();
+        this.calendar.currentDate = dfns.startOfToday();
     }
 
     onTimeSelected(ev: any) {
@@ -77,33 +54,6 @@ export class PatientSchedulePage {
     }
 
     onCurrentDateChanged(event:Date) {
-        var today = new Date();
-        today.setHours(0, 0, 0, 0);
-        event.setHours(0, 0, 0, 0);
-        this.isToday = today.getTime() === event.getTime();
-    }
-
-    createRandomEvents() {
-        var events = [];
-        for (var i = 0; i < 100; i += 1) {
-            var date = new Date();
-            var startDay = Math.floor(Math.random() * 60) - 20;
-            var endDay = startDay;
-            var startTime;
-            var endTime;
-            var startMinute = Math.floor(Math.random() * 24 * 60);
-            var endMinute = Math.floor(Math.random() * 180) + startMinute;
-            startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-            endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-            events.push({
-                title: 'Event - ' + i,
-                startTime: startTime,
-                endTime: endTime,
-                allDay: false,
-                doctor: `Doctor ${(i%3)+1}`,
-                stage: `stage-${(i%4)+1}`
-            });
-        }
-        return events;
+        this.isToday = dfns.isToday(event);
     }
 }

@@ -15,6 +15,7 @@ import {TabsPage, AboutPage, AboutPopoverPage,AccountPage,
         PatientSchedulePage, ScheduleDetailPage, LockScreenPage} from '../pages';
 
 import { ClinicianDataService } from '../providers/clinician-data';
+import { PatientDataService } from '../providers/patient-data';
 import { UserData } from '../providers/user-data';
 import { NgCalendarModule  } from 'ionic2-calendar';
 
@@ -76,6 +77,7 @@ import { FingerprintAIO } from "@ionic-native/fingerprint-aio";
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ClinicianDataService,
+    PatientDataService,
     UserData,
     SplashScreen,
     FingerprintAIO
